@@ -1,0 +1,204 @@
+.voice-call-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.voice-call-modal {
+  background: #ffffff;
+  border-radius: 20px;
+  width: 90%;
+  max-width: 420px;
+  padding: 28px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.voice-call-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.voice-call-header h3 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin: 0 0 8px;
+}
+
+.call-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #64748b;
+}
+
+.call-status .status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #94a3b8;
+  animation: pulse 2s infinite;
+}
+
+.call-status.connecting .status-dot {
+  background: #f59e0b;
+}
+
+.call-status.connected .status-dot {
+  background: #10b981;
+  animation: pulse 1.5s infinite;
+}
+
+.call-status.error .status-dot {
+  background: #ef4444;
+  animation: none;
+}
+
+.call-status.ended .status-dot {
+  background: #94a3b8;
+  animation: none;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.voice-call-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+  min-height: 120px;
+}
+
+.audio-visualizer {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 4px;
+  height: 60px;
+  width: 100%;
+}
+
+.viz-bar {
+  width: 6px;
+  background: linear-gradient(to top, #3b82f6, #60a5fa);
+  border-radius: 3px;
+  transition: height 0.1s ease;
+  animation: wave 1s ease-in-out infinite;
+}
+
+@keyframes wave {
+  0%, 100% { transform: scaleY(0.6); }
+  50% { transform: scaleY(1); }
+}
+
+.transcript-box {
+  background: #f1f5f9;
+  border-radius: 12px;
+  padding: 12px 16px;
+  width: 100%;
+  max-height: 100px;
+  overflow-y: auto;
+}
+
+.transcript-box p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #334155;
+  line-height: 1.5;
+}
+
+.error-message {
+  background: #fef2f2;
+  color: #dc2626;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  text-align: center;
+  width: 100%;
+}
+
+.voice-call-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+}
+
+.control-btn {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: #f1f5f9;
+  color: #475569;
+}
+
+.control-btn:hover:not(:disabled) {
+  transform: scale(1.05);
+  background: #e2e8f0;
+}
+
+.control-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.control-btn svg {
+  width: 24px;
+  height: 24px;
+}
+
+.mute-btn.muted {
+  background: #fef3c7;
+  color: #d97706;
+}
+
+.end-call-btn {
+  width: 64px;
+  height: 64px;
+  background: #ef4444;
+  color: #ffffff;
+}
+
+.end-call-btn:hover {
+  background: #dc2626;
+}
+
+@media (max-width: 480px) {
+  .voice-call-modal {
+    padding: 20px;
+    border-radius: 16px;
+  }
+
+  .voice-call-header h3 {
+    font-size: 1.2rem;
+  }
+}
