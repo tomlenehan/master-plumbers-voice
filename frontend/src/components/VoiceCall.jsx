@@ -265,7 +265,7 @@ function VoiceCall({ isOpen, onClose }) {
 
   const statusLabels = {
     idle: 'Initializing...',
-    connecting: 'Connecting...',
+    connecting: 'Please wait...',
     connected: 'On Call',
     error: 'Call Error',
     ended: 'Call Ended',

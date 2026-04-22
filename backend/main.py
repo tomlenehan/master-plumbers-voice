@@ -110,9 +110,9 @@ async def xai_voice_proxy(frontend_ws: WebSocket):
                 "modalities": ["audio", "text"],
                 "turn_detection": {
                     "type": "server_vad",
-                    "threshold": 0.85,
-                    "silence_duration_ms": 500,
-                    "prefix_padding_ms": 333,
+                    "threshold": 0.5,
+                    "silence_duration_ms": 300,
+                    "prefix_padding_ms": 200,
                 },
                 "audio": {
                     "input": {
@@ -131,6 +131,25 @@ async def xai_voice_proxy(frontend_ws: WebSocket):
             },
         }
         await xai_ws.send(json.dumps(session_update))
+
+        # Send initial greeting to make AI speak first
+        greeting = {
+            "type": "conversation.item.create",
+            "item": {
+                "type": "message",
+                "role": "user",
+                "content": [
+                    {
+                        "type": "input_text",
+                        "text": "Please greet the customer and ask how you can help them today."
+                    }
+                ]
+            }
+        }
+        await xai_ws.send(json.dumps(greeting))
+        
+        # Trigger the response
+        await xai_ws.send(json.dumps({"type": "response.create"}))
 
         async def frontend_to_xai():
             """Read audio/text from frontend and forward to xAI."""
